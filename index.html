@@ -41,6 +41,18 @@
 
     *, *::before, *::after { box-sizing: border-box; }
 
+/* Improved left and right spacing */
+.container {
+  width: min(calc(100% - 64px), var(--container));
+  margin-inline: auto;
+}
+
+@media (max-width: 620px) {
+  .container {
+    width: calc(100% - 40px);
+  }
+}
+
     html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 18px); }
 
     body {
