@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-label="Value-Based Solutions logo">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e1c17d"/>
+      <stop offset="55%" stop-color="#c9a35d"/>
+      <stop offset="100%" stop-color="#a9813f"/>
+    </linearGradient>
+    <linearGradient id="navyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c2338"/>
+      <stop offset="100%" stop-color="#071522"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== Brand mark ===== -->
+  <g transform="translate(36,28)">
+    <!-- Navy rounded-square badge -->
+    <rect x="0" y="0" width="104" height="104" rx="24" fill="url(#navyGrad)"/>
+    <!-- Inner keyline for premium finish -->
+    <rect x="7" y="7" width="90" height="90" rx="19" fill="none" stroke="#c9a35d" stroke-opacity="0.35" stroke-width="1.2"/>
+
+    <!-- Monogram: V formed as an upward-pointing value marker -->
+    <path d="M 26 32 L 52 78 L 78 32"
+          fill="none" stroke="url(#goldGrad)" stroke-width="7"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Inner echo stroke suggesting layered value / the letter B counter -->
+    <path d="M 40 32 L 52 54 L 64 32"
+          fill="none" stroke="#e1c17d" stroke-opacity="0.55" stroke-width="3.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Apex point: the "solution" -->
+    <circle cx="52" cy="78" r="4.5" fill="#e1c17d"/>
+  </g>
+
+  <!-- ===== Wordmark ===== -->
+  <g>
+    <text x="172" y="86"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="40" letter-spacing="0.5"
+          fill="#0c2338">
+      Value-Based <tspan fill="#c9a35d">Solutions</tspan>
+    </text>
+
+    <!-- Gold rule -->
+    <rect x="174" y="100" width="398" height="1.5" fill="#c9a35d" fill-opacity="0.6"/>
+
+    <!-- Tagline -->
+    <text x="174" y="124"
+          font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
+          font-size="13" font-weight="600" letter-spacing="5.2"
+          fill="#5d6972">
+      MANAGEMENT CONSULTING
+    </text>
+  </g>
+</svg>
