@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <button onclick="loginWithGoogle()">Sign in with Google</button>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -34,6 +33,7 @@
       --serif: "Cormorant Garamond", Georgia, serif;
       --sans: "Jost", "Segoe UI", Helvetica, Arial, sans-serif;
       --container: 1260px;
+      --gutter: clamp(24px, 3vw + 12px, 170px);
       --header-h: 92px;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -41,18 +41,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-
-/* Improved left and right spacing */
-.container {
-  width: min(calc(100% - 64px), var(--container));
-  margin-inline: auto;
-}
-
-@media (max-width: 620px) {
-  .container {
-    width: calc(100% - 40px);
-  }
-}
 
     html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 18px); }
 
@@ -89,7 +77,10 @@
     }
     .skip-link:focus { transform: translateY(0); }
 
-    .container { width: min(calc(100% - 52px), var(--container)); margin-inline: auto; }
+    .container {
+      width: min(calc(100% - (var(--gutter) * 2)), var(--container));
+      margin-inline: auto;
+    }
 
     /* ================= PRELOADER ================= */
 
@@ -262,7 +253,7 @@
       -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
     }
 
-    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 
     .brand {
       flex: 0 0 auto;
@@ -326,6 +317,47 @@
     .menu-toggle[aria-expanded="true"] .menu-toggle-lines span:first-child { top: 6px; transform: rotate(45deg); }
     .menu-toggle[aria-expanded="true"] .menu-toggle-lines span:last-child { top: 6px; transform: rotate(-45deg); }
 
+    /* ================= GOOGLE AUTH UI ================= */
+
+    .auth-box { display: flex; align-items: center; flex: 0 0 auto; }
+
+    .auth-btn, .auth-signout {
+      display: inline-flex; align-items: center; gap: 10px;
+      min-height: 46px; padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(245, 240, 228, 0.28);
+      color: var(--ivory);
+      font-family: var(--sans);
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+    }
+    .auth-btn:hover, .auth-signout:hover {
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+      background: rgba(198, 161, 91, 0.07);
+    }
+    .auth-btn svg { width: 16px; height: 16px; flex: 0 0 auto; }
+
+    .auth-user { display: inline-flex; align-items: center; gap: 12px; }
+
+    .auth-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(198, 161, 91, 0.6);
+    }
+
+    .auth-name {
+      max-width: 140px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      color: var(--gold-bright);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+
+    .auth-signout { min-height: 38px; padding: 9px 14px; font-size: 0.6rem; }
+
     /* ================= HERO — cinematic editorial ================= */
 
     .hero {
@@ -372,8 +404,6 @@
       padding-top: calc(var(--header-h) + clamp(40px, 6vh, 80px));
       padding-bottom: 150px;
     }
-
-    /* --- Left: copy --- */
 
     .hero-copy { max-width: 620px; will-change: transform; }
 
@@ -432,8 +462,6 @@
     .js .hero-fade.hero-fade-3 { transition-delay: 0.9s; }
     .js .hero-ready .hero-fade { opacity: 1; transform: translateY(0); }
 
-    /* --- Right: abstract gold sculpture — clean, frameless --- */
-
     .hero-plate {
       position: relative;
       margin: 0;
@@ -449,10 +477,7 @@
       overflow: hidden;
     }
 
-    .sculpture {
-      width: 100%; height: 100%;
-      display: block;
-    }
+    .sculpture { width: 100%; height: 100%; display: block; }
 
     .js .sculpture {
       opacity: 0;
@@ -460,7 +485,6 @@
     }
     .js .hero-ready .sculpture { opacity: 1; }
 
-    /* Gold line-work draws itself in once, then rests */
     .js .sculpture .draw {
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
@@ -478,7 +502,6 @@
     }
     .js .hero-ready .sculpture .fade-in { opacity: 1; }
 
-    /* Soft ambient breathing of the glow — barely perceptible */
     .sculpture .glow { animation: glowBreathe 10s ease-in-out infinite; }
     @keyframes glowBreathe {
       0%, 100% { opacity: 0.7; }
@@ -491,8 +514,6 @@
       transition: opacity 1.4s var(--ease) 0.35s, transform 1.4s var(--ease) 0.35s;
     }
     .js .hero-ready .hero-plate-wrap { opacity: 1; transform: translateY(0); }
-
-    /* --- Ticker + scroll cue --- */
 
     .hero-ticker {
       position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
@@ -1046,6 +1067,8 @@
     /* ================= RESPONSIVE ================= */
 
     @media (max-width: 1160px) {
+      :root { --gutter: clamp(28px, 5vw, 70px); }
+
       .primary-nav a:not(.nav-cta) { padding: 12px 10px; font-size: 0.67rem; letter-spacing: 0.14em; }
       .nav-cta { margin-left: 8px; padding: 12px 16px; }
       .brand-logo { height: 40px; }
@@ -1059,15 +1082,21 @@
     }
 
     @media (max-width: 940px) {
-      :root { --header-h: 78px; }
-      .container { width: min(calc(100% - 40px), var(--container)); }
+      :root {
+        --header-h: 78px;
+        --gutter: clamp(24px, 5vw, 48px);
+      }
 
       .menu-toggle { display: inline-flex; }
+
+      .auth-btn .auth-label-long { display: none; }
+      .auth-btn { padding: 12px 15px; }
+      .auth-name { max-width: 90px; }
 
       .primary-nav {
         position: fixed;
         top: calc(var(--header-h) + 10px);
-        right: 20px; left: 20px;
+        right: var(--gutter); left: var(--gutter);
         display: grid; gap: 2px;
         padding: 16px;
         background: rgba(4, 7, 14, 0.98);
@@ -1115,14 +1144,17 @@
     }
 
     @media (max-width: 620px) {
-      .container { width: min(calc(100% - 30px), var(--container)); }
+      :root { --gutter: clamp(20px, 6vw, 32px); }
+
       .section { padding: 88px 0; }
 
       .brand { padding: 6px 11px; }
       .brand-logo { height: 34px; }
       .site-header.is-scrolled .brand-logo { height: 30px; }
 
-      .hero-frame { inset: 12px; }
+      .auth-name { display: none; }
+
+      .hero-frame { inset: 10px; }
       .hero-frame::before, .hero-frame::after { width: 30px; height: 30px; }
 
       .hero-title { font-size: clamp(2.9rem, 13.5vw, 4.1rem); }
@@ -1221,10 +1253,6 @@
         <img class="brand-logo" src="logo.svg" alt="Value-Based Solutions — Management Consulting" width="640" height="160">
       </a>
 
-      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
-        <span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span>
-      </button>
-
       <nav class="primary-nav" id="primary-navigation" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#about">About</a>
@@ -1232,6 +1260,22 @@
         <a href="#case-studies">Case Studies</a>
         <a class="nav-cta" href="#contact">Start a Conversation</a>
       </nav>
+
+      <div class="auth-box">
+        <button class="auth-btn" id="authSignIn" type="button" hidden>
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.2 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7a14.5 14.5 0 0 1 0-9.4l-7.8-6.1a24 24 0 0 0 0 21.6l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.4-5.5l-7.5-5.8c-2.1 1.4-4.8 2.3-7.9 2.3-6.3 0-11.7-3.7-13.6-9l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+          <span>Sign in<span class="auth-label-long"> with Google</span></span>
+        </button>
+        <div class="auth-user" id="authUser" hidden>
+          <img class="auth-avatar" id="authAvatar" alt="" referrerpolicy="no-referrer">
+          <span class="auth-name" id="authName"></span>
+          <button class="auth-signout" id="authSignOut" type="button">Sign out</button>
+        </div>
+      </div>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span>
+      </button>
     </div>
   </header>
 
@@ -1309,14 +1353,11 @@
                   </radialGradient>
                 </defs>
 
-                <!-- Soft ambient light -->
                 <ellipse class="glow" cx="252" cy="168" rx="160" ry="130" fill="url(#scAmbient)"/>
 
-                <!-- Faint diamond keyline echoing the brand motif -->
                 <polygon class="fade-in" points="200,78 352,232 200,386 48,232"
                          fill="none" stroke="#ecd29a" stroke-opacity="0.08" stroke-width="1"/>
 
-                <!-- Quiet skyline hairlines -->
                 <g class="fade-in" stroke="#f5f0e4" stroke-width="1">
                   <line x1="64"  y1="400" x2="64"  y2="330" stroke-opacity="0.07"/>
                   <line x1="86"  y1="400" x2="86"  y2="352" stroke-opacity="0.1"/>
@@ -1325,9 +1366,6 @@
                   <line x1="348" y1="400" x2="348" y2="362" stroke-opacity="0.05"/>
                 </g>
 
-                <!-- ===== Ascending prism sculpture ===== -->
-
-                <!-- Block I -->
                 <g>
                   <polygon class="fade-in" points="114,372 170,400 170,330 114,302" fill="#0a111f" fill-opacity="0.6"/>
                   <polygon class="fade-in" points="170,400 226,372 226,302 170,330" fill="#ecd29a" fill-opacity="0.05"/>
@@ -1338,7 +1376,6 @@
                         fill="none" stroke="#ecd29a" stroke-opacity="0.4" stroke-width="0.8" stroke-linejoin="round"/>
                 </g>
 
-                <!-- Block II -->
                 <g>
                   <polygon class="fade-in" points="172,297 210,316 210,252 172,233" fill="#0a111f" fill-opacity="0.6"/>
                   <polygon class="fade-in" points="210,316 248,297 248,233 210,252" fill="#ecd29a" fill-opacity="0.055"/>
@@ -1349,7 +1386,6 @@
                         fill="none" stroke="#ecd29a" stroke-opacity="0.4" stroke-width="0.8" stroke-linejoin="round"/>
                 </g>
 
-                <!-- Block III -->
                 <g>
                   <polygon class="fade-in" points="220,225 246,238 246,184 220,171" fill="#0a111f" fill-opacity="0.6"/>
                   <polygon class="fade-in" points="246,238 272,225 272,171 246,184" fill="#ecd29a" fill-opacity="0.06"/>
@@ -1360,7 +1396,6 @@
                         fill="none" stroke="#ecd29a" stroke-opacity="0.4" stroke-width="0.7" stroke-linejoin="round"/>
                 </g>
 
-                <!-- Block IV — the cap -->
                 <g>
                   <polygon class="fade-in" points="257,164.5 272,172 272,132 257,124.5" fill="#0a111f" fill-opacity="0.55"/>
                   <polygon class="fade-in" points="272,172 287,164.5 287,124.5 272,132" fill="#ecd29a" fill-opacity="0.07"/>
@@ -1371,21 +1406,16 @@
                         fill="none" stroke="#ecd29a" stroke-opacity="0.4" stroke-width="0.7" stroke-linejoin="round"/>
                 </g>
 
-                <!-- The ascending line of value -->
                 <path class="draw draw-5" pathLength="1" d="M84,436 L316,96"
                       fill="none" stroke="url(#scGold)" stroke-width="1" stroke-linecap="round" stroke-opacity="0.85"/>
-                <!-- Apex diamond -->
                 <polygon class="fade-in" points="316,89 323,96 316,103 309,96" fill="#ecd29a"/>
                 <polygon class="fade-in" points="316,92.5 319.5,96 316,99.5 312.5,96" fill="#060b15"/>
 
-                <!-- Small accent diamonds along the ascent -->
                 <polygon class="fade-in" points="170,270 174,274 170,278 166,274" fill="#ecd29a" fill-opacity="0.75"/>
                 <polygon class="fade-in" points="246,154 249.5,158 246,161.5 242.5,158" fill="#ecd29a" fill-opacity="0.6"/>
 
-                <!-- Ground line -->
                 <rect class="fade-in" x="40" y="400" width="320" height="1" fill="url(#scBase)"/>
 
-                <!-- Whisper of reflection -->
                 <g class="fade-in">
                   <line x1="170" y1="402" x2="170" y2="434" stroke="url(#scReflect)" stroke-width="1"/>
                   <line x1="226" y1="402" x2="226" y2="424" stroke="url(#scReflect)" stroke-width="0.8"/>
@@ -1693,7 +1723,7 @@
               Cleveland, Ohio
             </p>
 
-            <a class="btn btn-gold" href="tel:+12164015004" data-magnetic>
+            <a class="btn btn-gold" href="tel:+12164015004" data-magnetic data-requires-auth>
               <span class="btn-sheen" aria-hidden="true"></span>
               Call Value Based Solutions
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -1751,7 +1781,7 @@
         finishLoading();
       } else {
         window.addEventListener("load", () => setTimeout(finishLoading, 1500));
-        setTimeout(finishLoading, 3800); /* safety fallback */
+        setTimeout(finishLoading, 3800);
       }
 
       /* ---------- Header + scroll progress ---------- */
@@ -1825,7 +1855,7 @@
         sections.forEach((s) => spy.observe(s));
       }
 
-      if (reduceMotion) return; /* everything below is decorative */
+      if (reduceMotion) return;
 
       /* ---------- Gold-dust particles ---------- */
       const canvas = document.getElementById("heroCanvas");
@@ -1884,7 +1914,7 @@
 
       const fine = window.matchMedia("(pointer: fine)").matches;
 
-      /* ---------- Hero mouse parallax (copy + plate drift apart) ---------- */
+      /* ---------- Hero mouse parallax ---------- */
       if (fine) {
         let tX = 0, tY = 0, cX = 0, cY = 0, pX = 0, pY = 0;
         hero.addEventListener("mousemove", (e) => {
@@ -1938,32 +1968,80 @@
       }
     })();
   </script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAQ1VJluQYYGl5DMnUvRKyp4vmz7p73YVg",
-    authDomain: "value-based-solutions.firebaseapp.com",
-    projectId: "value-based-solutions",
-    storageBucket: "value-based-solutions.firebasestorage.app",
-    messagingSenderId: "776831076405",
-    appId: "1:776831076405:web:b6f002e99e6946ea07497c",
-    measurementId: "G-H9FH4W2MHX"
-  };
+  <!-- ===== FIREBASE GOOGLE AUTHENTICATION ===== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+    /* ⬇️ PASTE YOUR EXISTING FIREBASE CONFIG HERE
+       (Firebase console → Project settings → Your apps → SDK setup and configuration) */
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-  window.loginWithGoogle = async function () {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      alert("Welcome, " + result.user.displayName);
-    } catch (error) {
-      alert("Login failed: " + error.message);
-    }
-  };
-</script>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const signInBtn  = document.getElementById("authSignIn");
+    const userBox    = document.getElementById("authUser");
+    const nameEl     = document.getElementById("authName");
+    const avatarEl   = document.getElementById("authAvatar");
+    const signOutBtn = document.getElementById("authSignOut");
+
+    const doSignIn = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        return true;
+      } catch (err) {
+        if (err.code !== "auth/popup-closed-by-user" &&
+            err.code !== "auth/cancelled-popup-request") {
+          alert("Sign-in failed. Please try again.");
+          console.error(err);
+        }
+        return false;
+      }
+    };
+
+    signInBtn.addEventListener("click", doSignIn);
+    signOutBtn.addEventListener("click", () => signOut(auth));
+
+    /* Header UI reflects auth state */
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        nameEl.textContent = user.displayName || user.email;
+        if (user.photoURL) { avatarEl.src = user.photoURL; avatarEl.hidden = false; }
+        else { avatarEl.hidden = true; }
+        signInBtn.hidden = true;
+        userBox.hidden = false;
+      } else {
+        signInBtn.hidden = false;
+        userBox.hidden = true;
+      }
+    });
+
+    /* Gate protected actions: elements with data-requires-auth trigger
+       Google sign-in first, then automatically continue the original action. */
+    document.addEventListener("click", async (e) => {
+      const target = e.target.closest("[data-requires-auth]");
+      if (!target || auth.currentUser) return;       // public, or already signed in
+      e.preventDefault();
+      e.stopPropagation();
+      const ok = await doSignIn();
+      if (ok && auth.currentUser) {
+        const href = target.getAttribute("href");
+        if (href) window.location.href = href;       // continue link action
+        else target.click();                          // continue button action
+      }
+    }, true);
+  </script>
 </body>
 </html>
