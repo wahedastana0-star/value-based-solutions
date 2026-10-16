@@ -1937,5 +1937,32 @@
       }
     })();
   </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQ1VJluQYYGl5DMnUvRKyp4vmz7p73YVg",
+    authDomain: "value-based-solutions.firebaseapp.com",
+    projectId: "value-based-solutions",
+    storageBucket: "value-based-solutions.firebasestorage.app",
+    messagingSenderId: "776831076405",
+    appId: "1:776831076405:web:b6f002e99e6946ea07497c",
+    measurementId: "G-H9FH4W2MHX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.loginWithGoogle = async function () {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      alert("Welcome, " + result.user.displayName);
+    } catch (error) {
+      alert("Login failed: " + error.message);
+    }
+  };
+</script>
 </body>
 </html>
